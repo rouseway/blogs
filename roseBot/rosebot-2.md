@@ -1,6 +1,6 @@
-#语音助手是这样子的（二）
+# 语音助手是这样子的（二）
 前一节我们介绍了语音助手的基本框架与核心技术，本节我们将优先介绍使用[OpenDial](http://www.opendial-toolkit.net/)来设计对话的管理与流程。OpenDial的功能很强大，可以实现NLU、DM以及NLG的所有功能，在官网上也有一系列的教程。在本系列博客中，我们仅仅使用OpenDial来进行对话管理（包括NLG），而把NLU剥离出来单独实现。
-##再来看场景
+## 再来看场景
 前一节中我们给出了一个设置闹钟的场景，现在让我们重新使用OpenDial的视角来看一下这个场景。
 > 用户：设置闹钟<br/>
 > Siri：请问您需要设置几点的闹钟？<br/>
@@ -9,7 +9,7 @@
 
 在这个场景中，如果我们稍作抽象则可以这样来看，“设置闹钟”可以抽象为一个动作叫做SetAlarm，而这个动作是来自用户的，我们定义其为a\_u（action of user）,而“设置闹钟”是这个动作的一种语言表达u\_u（utterance of user），语言的多样性允许用户使用其他的表述如“请为我设置一个闹钟”等等。同样，Siri的答复和操作也可以抽象，系统的答复“请问您需要设置几点的闹钟？”是u\_m（utterance of machine）的一种语言表达，而询问设置闹钟的具体时间可以抽象为一个叫做RequestTime的动作，即a\_m（action of machine）是RequestTime。<br/>
 如上的这些抽象其实是按照OpenDial的规范进行描述的，那么接下来我们就来研究如何把这样的一个对话场景设置到OpenDial中。<br/>
-##OpenDial
+## OpenDial
 OpenDial是一个使用概率规则与贝叶斯网络实现的开源对对话系统引擎。读者可以参考[OpenDial用户手册](http://www.opendial-toolkit.net/user-manual)中的介绍完整地学习OpenDial的使用，这里我们只针对本文中的场景介绍其简单的使用与配置。<br/>
 首先，启动OpenDial的可视化工具（.\scripts\opendial.bat），新建一个领域“Domian -&gt; New”，文件命名为Alarm.xml，点击保存后在“Domain Editor”的标签页里可以设计对话状态了。<br/>
 ![OpenDial Example 1](https://raw.githubusercontent.com/rouseway/blogs/master/roseBot/rosebot-1.jpg)
@@ -83,7 +83,7 @@ OpenDial的配置文件按如下的规范进行构造，一个场景被认为是
 保存如上的配置，在OpenDial工具中切换到“Interaction”标签页，就可以按照场景中的方式与OpenDial进行对话了。
 ![OpenDial Example 1](https://raw.githubusercontent.com/rouseway/blogs/master/roseBot/rosebot-2.jpg)
 OpenDial还有很多功能，比如支持正则表达式、可以设置变量的概率分布等，在这里我们不多介绍，感兴趣的读者可以参考官方指南。
-##泛化表达
+## 泛化表达
 我们说u_u由于语言表达的多样性是存在很丰富的实例的，我们不可能把所有的表达都枚举到OpenDial的配置中，而且诸如“明天早上六点”这样的时间信息，是需要自动传递到下一轮对话的，而不应该是固定写死在配置文件中的。所以，我们将使用一种称为“槽位填充”的思想来解决上述的问题。<br/>
 **槽位**是来自于自然语言处理中经常使用的规则模板的一个概念，它是对相同语义概念的表达的一种泛化。相对的，如果能填充到槽位里的表达就叫做相应的实例化表述。我们直观地看一个例子：<br/>
 > 【D:set】【D:clock】&nbsp;&nbsp;&nbsp;=&gt;&nbsp;&nbsp;&nbsp;设置闹钟<br/>
