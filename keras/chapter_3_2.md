@@ -22,7 +22,7 @@ from keras.datasets import imdb
 print(train_data[0], train_labels[0])
 ```
 
-<font color="#A9A9A9">[1, 14, 22, 16, ..., 5345, 19, 178, 32] 1</font>
+<font color=#A9A9A9 face="Courier New">[1, 14, 22, 16, ..., 5345, 19, 178, 32] 1</font>
 
 
 我们分别输出一条训练数据与对应的标签，可以看出每条评论被表示为单词的索引编号的序列，而标签对应于0/1的整数表示负面（negative）与正面（positive）。显然，用单词索引编号序列表示的每条评论数据是不等长的，并不能用作神经网络的输入，我们需要将其转换为张量。一种最简单的张量转换方法就是one-hot编码，这种方法把每一条评论对应为一个词汇表大小的向量，出现过单词多对应的位置被置为1，其他位置为0。
@@ -42,7 +42,7 @@ x_test = vectorize_sequences(test_data) #对测试数据进行one-hot编码
 print(x_train[0])
 ```
 
- <font color="#A9A9A9">[0. 1. 1. ... 0. 0. 0.]</font>
+ <font color=#A9A9A9 face="Courier New">[0. 1. 1. ... 0. 0. 0.]</font>
 
 
 当然，对应的标签也应该向量化作为神经网络的目标值，只需要将它们转换为Numpy数组就行：
@@ -105,7 +105,8 @@ partial_y_train = y_train[10000:]
 history = model.fit(partial_x_train, partial_y_train, 
 			epochs=20, batch_size=512, validation_data=(x_val, y_val))
 ```
- <font color="#A9A9A9">
+
+<font color=#A9A9A9 face="Courier New">
 Train on 15000 samples, validate on 10000 samples</br>
     Epoch 1/20</br>
     15000/15000 [==============================] - 7s 482us/step - loss: 0.4977 - acc: 0.7947 - val\_loss: 0.3720 - val\_acc: 0.8717</br>
@@ -207,7 +208,7 @@ results = model.evaluate(x_test, y_test)
 print(results)
 ```
 
-<font color="#A9A9A9">
+<font color=#A9A9A9 face="Courier New">
 Train on 15000 samples, validate on 10000 samples</br>
     Epoch 1/4</br>
     15000/15000 [==============================] - 7s 481us/step - loss: 0.5084 - acc: 0.7813 - val\_loss: 0.3798 - val\_acc: 0.8681</br>
@@ -216,7 +217,7 @@ Train on 15000 samples, validate on 10000 samples</br>
     15000/15000 [==============================] - 6s 396us/step - loss: 0.1751 - acc: 0.9438 - val\_loss: 0.2840 - val\_acc: 0.8831</br>
     25000/25000 [==============================] - 6s 260us/step</br>
     [0.3068919235897064, 0.87496]
- </font>
+</font>
 
 
 很激动吧，我们仅仅用了不到三十行代码就到达了87%的精度，如果我们换用更复杂的模型，会有更好的结果。
