@@ -17,8 +17,10 @@ from keras import layers
 
 model = models.Sequential()
 model.add(layers.Dense(32, input_shape=(784,)))  #只有第一层需要定义输入的形状
-model.add(layers.Dense(32))  #其余层只需要定义输出的形状
+model.add(layers.Dense(32), activation='sigmoid')  #其余层只需要定义输出的形状
 ```
+关于每一层所使用的激活函数，可以按照如下的建议去设计：
+
 
 对于损失函数的选择，我们有如下的经验指导原则：
 
@@ -33,7 +35,8 @@ model.add(layers.Dense(32))  #其余层只需要定义输出的形状
 ```python
 from keras import optimizers
 
-model.compile(optimizer=optimizers.RMSprop(lr=0.001), loss='mse', metrics=['accuracy'])
+model.compile(optimizer=optimizers.RMSprop(lr=0.001), loss='mse', 
+										metrics=['accuracy'])
 ```
 
 最后，学习的过程就是通过fit()方法将输入数据的Numpy数组（以及对应的目标值）传入模型：

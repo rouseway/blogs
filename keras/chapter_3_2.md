@@ -22,7 +22,7 @@ from keras.datasets import imdb
 print(train_data[0], train_labels[0])
 ```
 
-<font color=#A9A9A9 face="Courier New">[1, 14, 22, 16, ..., 5345, 19, 178, 32] 1</font>
+<font color=#A9A9A9 size=2, face="Courier New">[1, 14, 22, 16, ..., 5345, 19, 178, 32] 1</font>
 
 
 我们分别输出一条训练数据与对应的标签，可以看出每条评论被表示为单词的索引编号的序列，而标签对应于0/1的整数表示负面（negative）与正面（positive）。显然，用单词索引编号序列表示的每条评论数据是不等长的，并不能用作神经网络的输入，我们需要将其转换为张量。一种最简单的张量转换方法就是one-hot编码，这种方法把每一条评论对应为一个词汇表大小的向量，出现过单词多对应的位置被置为1，其他位置为0。
