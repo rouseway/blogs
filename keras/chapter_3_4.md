@@ -129,7 +129,7 @@ plt.show()
 ```
 
 
-![png](output_17_0.png)
+![png](https://raw.githubusercontent.com/rouseway/blogs/master/keras/chapter_3_4_1.png)
 
 
 很遗憾，由于数据的方差都相对较大，图片并没有直观地反映出指标的变化趋势。我们需要采取一点小技巧重新绘制：
@@ -156,7 +156,7 @@ plt.show()
 ```
 
 
-![png](output_19_0.png)
+![png](https://raw.githubusercontent.com/rouseway/blogs/master/keras/chapter_3_4_2.png)
 
 
 此时的曲线可以很直观地看出，验证MAE在60轮左右就不再显著降低了，此后甚至出现了过拟合。我们用最好的参数（这里只演示了调整轮数）训练最终的生产模型，并观察它在测试集上的性能。
